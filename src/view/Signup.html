@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentZen - Inscription</title>
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
+</head>
+<body>
+
+<div class="login-container"> <h1>Créer un compte</h1>
+
+    <form id="registerForm">
+        <div class="form-group">
+            <label for="firstName">Prénom</label>
+            <input type="text" id="firstName" required>
+        </div>
+
+        <div class="form-group">
+            <label for="lastName">Nom</label>
+            <input type="text" id="lastName" required>
+        </div>
+
+        <div class="form-group">
+            <label for="mail">Email</label>
+            <input type="email" id="mail" required>
+        </div>
+
+        <div class="form-group">
+            <label for="mdp">Mot de passe</label>
+            <input type="password" id="mdp" placeholder="8 caractères min." required>
+        </div>
+
+        <div class="form-group">
+            <label for="mdpConfirm">Confirmer</label>
+            <input type="password" id="mdpConfirm" required>
+        </div>
+
+        <div class="form-group">
+            <label for="role">Je suis un :</label>
+            <select id="role">
+                <option value="bailleur">Bailleur</option>
+                <option value="gestionnaire">Gestionnaire</option>
+            </select>
+        </div>
+
+        <button type="submit" id="signup-btn">S'inscrire</button>
+    </form>
+
+    <p id="message" class="message-box"></p>
+
+    <p>Déjà un compte ? <a href="Login.html">Se connecter</a></p>
+</div>
+
+<script type="module" src="../ts/js/view/SignupView.js"></script>
+
+</body>
+</html>

@@ -1,30 +1,45 @@
-import { IUserDAO } from "../Interfaces/IUserDAO";
+import { IUserDAO } from "../Interfaces/IUserDAO.js";
+import User from "../../model/User.js";
+import { DAO } from "../DAO.js";
 
-const API_URL = "https://10.128.207.44:8081";
-
-export default class UserDAO implements IUserDAO {
+export default class UserDAO extends DAO implements IUserDAO {
 
     async login(email: string, pass: string): Promise<string | null> {
-        try {
-            // Construction propre de l'URL
-            const url = new URL(`${API_URL}/User/Login`);
-            url.searchParams.append("email", email);
-            url.searchParams.append("passwd", pass);
+        const url = `/User/Login?email=${encodeURIComponent(email)}&passwd=${encodeURIComponent(pass)}`;
 
-            const response = await fetch(url.toString(), {
-                method: "GET",
-            });
+        const data = await this.request(url, { method: "GET" });
 
-            if (response.ok) {
-                const data = await response.json();
-                return data.token || null;
-            } else {
-                console.error("Erreur API:", response.statusText);
-                return null;
-            }
-        } catch (error) {
-            console.error("Erreur réseau:", error);
-            return null;
+        if (data) {
+            return data.token || null;
         }
+        return null;
+    }
+
+    async emailExists(email: string): Promise<boolean> {
+        const url = `/User/EmailExists?email=${encodeURIComponent(email)}`;
+        const data = await this.request(url, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" }
+        });
+
+        return !!data;
+    }
+
+    async register(user: User, password: string): Promise<boolean> {
+        const body = {
+            Email: user.email,
+            Password: password,
+            FirstName: user.firstName,
+            LastName: user.lastName,
+            Role: user.role
+        };
+
+        const data = await this.request("/User/CreateUser", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body)
+        });
+
+        return data !== null;
     }
 }

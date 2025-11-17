@@ -1,11 +1,13 @@
 import UserDAO from "../Data/Implementations/UserDAO.js";
+import { View } from "./View.js";
 
-export class LoginView {
+export class LoginView extends View {
     private dao: UserDAO;
     private authForm: HTMLFormElement | null;
     private authMsg: HTMLElement | null;
 
     constructor() {
+        super(true);
         this.dao = new UserDAO();
         this.authForm = document.getElementById("authForm") as HTMLFormElement;
         this.authMsg = document.getElementById("message");
@@ -13,7 +15,7 @@ export class LoginView {
         this.init();
     }
 
-    private init(): void {
+    public init(): void {
         console.log("Auth/Connexion View Initialized");
         if (this.authForm) {
             this.authForm.addEventListener("submit", (e) => this.handleAuthSubmit(e));
@@ -34,7 +36,7 @@ export class LoginView {
             return;
         }
 
-        // Appel au DAO (C'est ici que la magie opère proprement !)
+        // call DAO
         const token = await this.dao.login(mail, pass);
 
         if (token) {
@@ -48,7 +50,7 @@ export class LoginView {
         sessionStorage.setItem("userToken", token);
         const tokenData = this.parseJwt(token);
 
-        // Récupération sécurisée du rôle (gestion des clés bizarres de Microsoft)
+        // gestion des clés bizarres de microsoft
         const roleKey = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role";
         const userRole = tokenData ? tokenData[roleKey] : null;
 
@@ -61,6 +63,7 @@ export class LoginView {
         this.redirectUser(userRole);
     }
 
+    // redirection
     private redirectUser(role: string): void {
         switch (role) {
             case "bailleur":
@@ -84,7 +87,7 @@ export class LoginView {
         }
     }
 
-    // Utilitaire interne pour décoder le token
+    // StackOverflow coming in clutch
     private parseJwt(token: string): any {
         try {
             const base64Url = token.split('.')[1];

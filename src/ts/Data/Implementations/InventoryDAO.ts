@@ -1,29 +1,25 @@
-import { IInventoryDAO } from "../Interfaces/IInventoryDAO";
-import Inventory from "../../model/Inventory";
+import { IInventoryDAO } from "../Interfaces/IInventoryDAO.js";
+import Inventory from "../../model/Inventory.js";
+import { DAO } from "../DAO.js";
 
-// Idéalement, cette URL doit être dans un fichier de config commun, pas ici.
-const API_URL = "https://10.128.207.44:8081";
-
-export default class InventoryDAO implements IInventoryDAO {
+export default class InventoryDAO extends DAO implements IInventoryDAO {
 
     async addInventory(inventory: Inventory, propertyId: string, token: string): Promise<boolean> {
-        try {
-            const response = await fetch(`${API_URL}/Inventory/AddInventory?idProperty=${propertyId}&token=${token}`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    id: inventory.id, // Probablement 0 lors de la création
-                    Name: inventory.name,
-                    Description: inventory.description,
-                    Date: inventory.date
-                })
-            });
+        const url = `/Inventory/AddInventory?idProperty=${propertyId}&token=${token}`;
 
-            if (!response.ok) throw new Error("Erreur API");
-            return true;
-        } catch (error) {
-            console.error(error);
-            return false;
-        }
+        const bodyData = {
+            id: inventory.id,
+            Name: inventory.name,
+            Description: inventory.description,
+            Date: inventory.date
+        };
+
+        const result = await this.request(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(bodyData)
+        });
+
+        return result !== null;
     }
 }
