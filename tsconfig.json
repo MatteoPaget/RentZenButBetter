@@ -4,6 +4,7 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "outDir": "./src/ts/js",
+    "rootDir": "./src/ts",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
