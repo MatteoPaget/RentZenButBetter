@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentZen - Connexion</title>
+    <link rel="stylesheet" href="../../styles/style.css">
+</head>
+<body>
+
+<div class="login-container">
+    <h1>Connexion</h1>
+
+    <form id="authForm">
+        <div class="form-group">
+            <label for="mail">Email</label>
+            <input type="email" id="mail" placeholder="votre@email.com" required>
+        </div>
+
+        <div class="form-group">
+            <label for="pass">Mot de passe</label>
+            <input type="password" id="pass" placeholder="********" required>
+        </div>
+
+        <button type="submit" id="login-btn">Se connecter</button>
+    </form>
+
+    <p id="message" class="message-box"></p>
+</div>
+
+<script type="module" src="../ts/js/view/LoginView.js"></script>
+
+</body>
+</html>
