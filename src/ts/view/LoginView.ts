@@ -59,6 +59,8 @@ export class LoginView extends View {
             return;
         }
 
+        sessionStorage.setItem("userRole", userRole);
+
         this.afficherMessage("Connexion réussie ! Redirection...", "green");
         this.redirectUser(userRole);
     }
@@ -67,10 +69,8 @@ export class LoginView extends View {
     private redirectUser(role: string): void {
         switch (role) {
             case "bailleur":
-                window.location.href = '../../bail/liste/liste.html';
-                break;
             case "agent":
-                window.location.href = '../../agent/liste/liste.html';
+                window.location.href = 'PropertyList.html';
                 break;
             case "admin":
                 window.location.href = '../../admin/admin.html';

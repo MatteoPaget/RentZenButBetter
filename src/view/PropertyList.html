@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentZen - Liste des Biens</title>
+    <link rel="stylesheet" href="../../src/styles/style.css">
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
+</head>
+<body>
+
+<div class="container">
+    <h1>Liste des biens en demande d'état des lieux</h1>
+
+    <div class="actions-bar">
+        <button id="btnCreerAgeLis" class="btn" disabled>Créer un état des lieux</button>
+        <button id="btnModifierAgeLis" class="btn" disabled>Modifier un état des lieux</button>
+        <button id="btnValider" class="btn" disabled>Valider un état des lieux</button>
+    </div>
+
+    <hr>
+    <h2>Tous les biens immobiliers</h2>
+
+    <table id="propertyTable" class="styled-table">
+        <thead>
+        <tr>
+            <th>Nom du bien</th>
+            <th>Adresse</th>
+            <th>Loyer</th>
+        </tr>
+        </thead>
+        <tbody id="propertyListBody">
+        <tr>
+            <td colspan="3">Chargement des biens...</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p id="message" class="message-box"></p>
+</div>
+
+<script type="module" src="../ts/js/view/PropertyListView.js"></script>
+</body>
+</html>

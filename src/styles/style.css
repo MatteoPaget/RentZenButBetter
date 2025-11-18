@@ -1,3 +1,9 @@
+/*
+Je vais etre honnete, c est pratiquement integralement generer par IA
+Je ne suis pas un MMi, je n ai pas un cote artistique assez pousse pour faire
+quelque chose de beau.
+*/
+
 body {
     font-family: Arial, sans-serif;
     text-align: center;
@@ -176,4 +182,123 @@ tbody tr:last-child td {
     background-color: #f9f9f9;
     border-radius: 4px;
     border: 1px solid #ddd;
+}
+
+/* --- Styles pour la liste des biens --- */
+
+.header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.property-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Grille responsive */
+    gap: 20px;
+}
+
+.property-card {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+
+.property-card:hover {
+    transform: translateY(-5px); /* Petit effet au survol */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.property-card h3 {
+    color: #2c3e50;
+    margin-top: 0;
+}
+
+.property-info {
+    color: #666;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+.btn-edit {
+    width: 100%;
+    padding: 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-edit:hover {
+    background-color: #2980b9;
+}
+
+.loading {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+    grid-column: 1 / -1;
+}
+
+.navbar-global {
+    background-color: #800020;
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+}
+
+.navbar-global a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+.navbar-global .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* --- Bannière Simple --- */
+.top-banner {
+    background-color: #2c3e50;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-family: sans-serif;
+}
+
+.top-banner .user-info {
+    font-size: 1.1rem;
+}
+
+.top-banner .separator {
+    margin: 0 10px;
+    opacity: 0.5;
+}
+
+.top-banner .btn-home {
+    color: white;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 5px 15px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.top-banner .btn-home:hover {
+    background: rgba(255, 255, 255, 0.2);
 }
