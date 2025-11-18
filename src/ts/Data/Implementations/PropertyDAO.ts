@@ -7,16 +7,31 @@ export default class PropertyDAO extends DAO implements IPropertyDAO {
     async getPropertiesByOwner(token: string): Promise<Property[]> {
         const data = await this.request(`/Property/GetProperties?token=${token}`, { method: "GET" });
 
+        console.log("Données reçues (Mes Biens) :", data);
+
         if (!data || !Array.isArray(data)) return [];
-        return data.map((item: any) => new Property(item.id, item.name, item.address, item.rent));
+
+        return data.map((item: any) => new Property(
+            item.id || item.Id,
+            item.name || item.Name,
+            item.address || item.Address || item.Adress || item.adress,
+            item.rent || item.Rent
+        ));
     }
 
     async getAllProperties(token: string): Promise<Property[]> {
         const data = await this.request(`/Property/GetAllProperties?token=${token}`, { method: "GET" });
 
+        console.log("Données reçues (Tout) :", data);
+
         if (!data || !Array.isArray(data)) return [];
 
-        return data.map((item: any) => new Property(item.id, item.name, item.address, item.rent));
+        return data.map((item: any) => new Property(
+            item.id || item.Id,
+            item.name || item.Name,
+            item.address || item.Address || item.Adress || item.adress,
+            item.rent || item.Rent
+        ));
     }
 
     async getPropertyById(id: string, token: string): Promise<Property | null> {

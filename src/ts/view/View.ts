@@ -37,7 +37,7 @@ export abstract class View implements Page {
                     <span class="separator">|</span> 
                     <span>${role}</span>
                 </div>
-                <a href="../../index.html" class="btn-home">Accueil</a>
+                <a href="../../index.html" class="btn-home" onclick="sessionStorage.clear()">Accueil</a>
             </nav>
         `);
     }
