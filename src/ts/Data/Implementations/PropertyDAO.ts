@@ -12,10 +12,10 @@ export default class PropertyDAO extends DAO implements IPropertyDAO {
         if (!data || !Array.isArray(data)) return [];
 
         return data.map((item: any) => new Property(
-            item.id || item.Id,
-            item.name || item.Name,
-            item.address || item.Address || item.Adress || item.adress,
-            item.rent || item.Rent
+            item.id ?? item.Id,
+            item.name ?? item.Name,
+            item.address ?? item.Address ?? item.Adress ?? item.adress,
+            item.rent ?? item.Rent
         ));
     }
 
@@ -27,10 +27,10 @@ export default class PropertyDAO extends DAO implements IPropertyDAO {
         if (!data || !Array.isArray(data)) return [];
 
         return data.map((item: any) => new Property(
-            item.id || item.Id,
-            item.name || item.Name,
-            item.address || item.Address || item.Adress || item.adress,
-            item.rent || item.Rent
+            item.id ?? item.Id,
+            item.name ?? item.Name,
+            item.address ?? item.Address ?? item.Adress ?? item.adress,
+            item.rent ?? item.Rent
         ));
     }
 

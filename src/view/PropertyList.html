@@ -12,14 +12,25 @@
 <div class="container">
     <h1>MainTitle</h1>
 
-    <div class="actions-bar">
-        <button id="btnCreerAgeLis" class="btn" disabled>Créer un état des lieux</button>
-        <button id="btnModifierAgeLis" class="btn" disabled>Modifier un état des lieux</button>
-        <button id="btnValider" class="btn" disabled>Valider un état des lieux</button>
+    <div id="agent-actions" class="actions-barAgent" style="display: none;">
+    <button id="btnCreerAgent" class="btnAgent" disabled>Créer un état des lieux</button>
+    <button id="btnModifierAgent" class="btnAgent" disabled>Modifier un état des lieux</button>
+    <button id="btnValiderAgent" class="btnAgent" disabled>Valider un état des lieux</button>
+</div>
+
+    <div id="bailleur-actions" class="actions-barBailleur" style="display: none;">
+        <button id="btnAddPropertyBailleur" class="btnBailleur">Ajouter une propriété</button>
+        <button id="btnModPropertyBailleur" class="btnBailleur" disabled>Modifier une propriété</button>
+        <button id="btnDelPropertyBailleur" class="btnBailleur" disabled>Supprimer une propriété</button>
+        <button id="btnCheckPropertyBailleur" class="btnBailleur" disabled>Consulter une propriété</button>
+    </div>
+
+    <div id="admin-actions" class="actions-bar" style="display: none;">
+        <button id="btnTemp" class="btn temp">test</button>
     </div>
 
     <hr>
-    <h2>Tous les biens immobiliers</h2>
+    <h2>SubTitle</h2>
 
     <table id="propertyTable" class="styled-table">
         <thead>

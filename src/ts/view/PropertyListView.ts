@@ -7,29 +7,48 @@ export class PropertyListView extends View {
     private tableBody: HTMLElement | null;
     private selectedRow: HTMLElement | null = null;
 
-    // Boutons d'action
+    // Boutons Agent
     private btnCreate: HTMLButtonElement | null;
     private btnEdit: HTMLButtonElement | null;
     private btnValidate: HTMLButtonElement | null;
 
+    // Boutons Bailleur
+    private btnAddProp: HTMLButtonElement | null;
+    private btnModProp: HTMLButtonElement | null;
+    private btnDelProp: HTMLButtonElement | null;
+    private btnCheckProp: HTMLButtonElement | null;
+
     constructor() {
-        super(false); // Page privée (sécurisée)
+        super(false); // Page privée
         this.dao = new PropertyDAO();
 
-        // éléments HTML
         this.tableBody = document.getElementById("propertyListBody");
-        this.btnCreate = document.getElementById("btnCreerAgeLis") as HTMLButtonElement;
-        this.btnEdit = document.getElementById("btnModifierAgeLis") as HTMLButtonElement;
-        this.btnValidate = document.getElementById("btnValider") as HTMLButtonElement;
+
+        // Récupération Agent
+        this.btnCreate = document.getElementById("btnCreerAgent") as HTMLButtonElement;
+        this.btnEdit = document.getElementById("btnModifierAgent") as HTMLButtonElement;
+        this.btnValidate = document.getElementById("btnValiderAgent") as HTMLButtonElement;
+
+        // Récupération Bailleur
+        this.btnAddProp = document.getElementById("btnAddPropertyBailleur") as HTMLButtonElement;
+        this.btnModProp = document.getElementById("btnModPropertyBailleur") as HTMLButtonElement;
+        this.btnDelProp = document.getElementById("btnDelPropertyBailleur") as HTMLButtonElement;
+        this.btnCheckProp = document.getElementById("btnCheckPropertyBailleur") as HTMLButtonElement;
 
         this.init();
     }
 
     public async init(): Promise<void> {
-        // Gestion des clics
+        // agent
         this.btnCreate?.addEventListener("click", () => this.navigate("InventoryCreation.html"));
-        this.btnEdit?.addEventListener("click", () => console.log("Vers page modification..."));
-        this.btnValidate?.addEventListener("click", () => console.log("Vers page validation..."));
+        this.btnEdit?.addEventListener("click", () => console.log("Agent: Modifier EDL..."));
+        this.btnValidate?.addEventListener("click", () => console.log("Agent: Valider EDL..."));
+
+        // bailleur
+        this.btnAddProp?.addEventListener("click", () => console.log("Bailleur: Ajouter propriété..."));
+        this.btnModProp?.addEventListener("click", () => console.log("Bailleur: Modifier propriété..."));
+        this.btnDelProp?.addEventListener("click", () => console.log("Bailleur: Supprimer propriété..."));
+        this.btnCheckProp?.addEventListener("click", () => console.log("Bailleur: Consulter propriété..."));
 
         const token = sessionStorage.getItem("userToken") || "";
         const role = sessionStorage.getItem("userRole") || "";
@@ -54,19 +73,24 @@ export class PropertyListView extends View {
     private updateUI(role: string): void {
         const mainTitle = document.querySelector("h1");
         const subTitle = document.querySelector("h2");
-        const actionsBar = document.querySelector(".actions-bar") as HTMLElement;
+
+        const actionsBarAgent = document.querySelector(".actions-barAgent") as HTMLElement;
+        const actionsBarBailleur = document.querySelector(".actions-barBailleur") as HTMLElement;
+
+        // cahcé par defaut
+        if (actionsBarAgent) actionsBarAgent.style.display = "none";
+        if (actionsBarBailleur) actionsBarBailleur.style.display = "none";
 
         // VISUEL BAILLEUR
         if (role === "bailleur") {
             if (mainTitle) mainTitle.textContent = "Mon Tableau de Bord";
             if (subTitle) subTitle.textContent = "Mes locations";
-            if (actionsBar) actionsBar.style.display = "none";
+            if (actionsBarBailleur) actionsBarBailleur.style.display = "block";
         } else {
             // VISUEL AGENT / ADMIN
             if (mainTitle) mainTitle.textContent = "Gestion des États des Lieux";
             if (subTitle) subTitle.textContent = "Tous les biens immobiliers";
-            // On s'assure que la barre est visible
-            if (actionsBar) actionsBar.style.display = "block";
+            if (actionsBarAgent) actionsBarAgent.style.display = "block";
         }
     }
 
