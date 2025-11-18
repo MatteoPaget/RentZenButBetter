@@ -56,7 +56,7 @@ export class PropertyListView extends View {
         // adapte l'interface visuelle
         this.updateUI(role);
 
-        let properties: Property[] = [];
+        let properties: Property[];
 
         if (role === "agent" || role === "gestionnaire" || role === "admin") {
             console.log("Mode Agent : Chargement global");
