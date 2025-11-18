@@ -32,7 +32,7 @@ export class PropertyListView extends View {
         const token = sessionStorage.getItem("userToken") || "";
         const role = sessionStorage.getItem("userRole") || ""; // On récupère le rôle
 
-        let properties: Property[] = [];
+        let properties: Property[];
 
         // LOGIQUE DE CHOIX
         if (role === "agent" || role === "admin") {
