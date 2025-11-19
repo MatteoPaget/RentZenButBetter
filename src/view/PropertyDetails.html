@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentZen - Détails du Bien</title>
+    <link rel="stylesheet" href="../../src/styles/style.css">
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
+</head>
+<body>
+
+<div class="container">
+    <div class="details-header">
+        <h1>Détails du Bien</h1>
+        <a href="PropertyList.html" class="link-back">← Retour à la liste</a>
+    </div>
+
+    <div class="details-card">
+        <div class="details-header-block">
+            <h2 id="detail-name">Chargement...</h2>
+            <span id="detail-type" class="badge">Type</span>
+        </div>
+
+        <hr>
+
+        <div class="details-grid">
+            <div class="detail-item">
+                <span class="label">Adresse :</span>
+                <p id="detail-address">...</p>
+            </div>
+
+            <div class="detail-item">
+                <span class="label">Loyer mensuel :</span>
+                <p id="detail-rent" class="price">...</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="extra-info-section">
+        <h3>Historique & Statistiques</h3>
+        <p class="placeholder-text">A FAIRE</p>
+    </div>
+</div>
+
+<script type="module" src="../ts/js/view/PropertyDetailsView.js"></script>
+
+</body>
+</html>

@@ -1,6 +1,7 @@
-import Inventory from "../../model/Inventory";
+import Inventory from "../../model/Inventory.js";
 
 export interface IInventoryDAO {
-    // Ajoute un etat des lieux
     addInventory(inventory: Inventory, propertyId: string, token: string): Promise<boolean>;
+    getInventoryById(id: string, token: string): Promise<Inventory | null>;
+    updateInventory(inventory: Inventory, propertyId: string, token: string): Promise<boolean>;
 }

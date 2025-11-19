@@ -3,23 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RentZen - Nouvel État des Lieux</title>
+    <title>RentZen - État des Lieux</title>
     <link rel="stylesheet" href="../../src/styles/style.css">
     <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
 </head>
 <body>
 
-<nav>
-    <a href="Login.html" onclick="sessionStorage.clear()">Déconnexion</a>
-</nav>
-
 <div class="container">
-    <h1>Créer un État des Lieux</h1>
+    <h1>État des Lieux</h1>
 
-    <form id="form-creation-etat">
+    <form id="form-creation-etat" class="form-card">
         <div class="form-group">
             <label for="nom">Nom de l'état des lieux</label>
-            <input type="text" id="nom" placeholder="Ex: Entrée locataire M. Dupont" required>
+            <input type="text" id="nom" placeholder="Ex: Entrée M. Dupont" required>
         </div>
 
         <div class="form-group">
@@ -29,13 +25,16 @@
 
         <div class="form-group">
             <label for="description">Description / Remarques</label>
-            <textarea id="description" rows="5" placeholder="Détails de l'inventaire..."></textarea>
+            <textarea id="description" rows="5" placeholder="Détails de l'état du bien, relevés de compteurs, etc..." required></textarea>
         </div>
 
-        <button type="submit">Enregistrer</button>
+        <div class="form-actions">
+            <button type="button" class="btn btn-secondary" onclick="window.history.back()">Annuler</button>
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+        </div>
     </form>
 
-    <p id="message-container" class="message-box"></p>
+    <p id="message-container" class="message-box" style="display: none;"></p>
 </div>
 
 <script type="module" src="../ts/js/view/InventoryCreationView.js"></script>

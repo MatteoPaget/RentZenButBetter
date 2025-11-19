@@ -39,55 +39,67 @@ export class PropertyListView extends View {
     }
 
     public async init(): Promise<void> {
-        // agent
+        // Listeners AGENT
         this.btnCreate?.addEventListener("click", () => this.navigate("InventoryCreation.html"));
-        this.btnEdit?.addEventListener("click", () => console.log("Agent: Modifier EDL..."));
-        this.btnValidate?.addEventListener("click", () => console.log("Agent: Valider EDL..."));
 
-        // bailleur
-        this.btnAddProp?.addEventListener("click", () => console.log("Bailleur: Ajouter propriété..."));
-        this.btnModProp?.addEventListener("click", () => console.log("Bailleur: Modifier propriété..."));
-        this.btnDelProp?.addEventListener("click", () => console.log("Bailleur: Supprimer propriété..."));
-        this.btnCheckProp?.addEventListener("click", () => console.log("Bailleur: Consulter propriété..."));
+        this.btnEdit?.addEventListener("click", () => {
+            const invId = sessionStorage.getItem("selectedInventoryId");
+            if (invId && invId !== "0") {
+                // On envoie l'ID de l'INVENTAIRE, pas de la propriété
+                this.navigate(`InventoryCreation.html?id=${invId}`);
+            }
+        });
+
+        this.btnValidate?.addEventListener("click", () => console.log("Agent: Valider EDL (À implémenter avec SetInventoryState)..."));
+
+        // Listeners BAILLEUR
+        this.btnAddProp?.addEventListener("click", () => this.navigate("PropertyForm.html"));
+
+        this.btnModProp?.addEventListener("click", () => {
+            const propId = sessionStorage.getItem("selectedPropertyId");
+            if (propId) this.navigate(`PropertyForm.html?id=${propId}`);
+        });
+
+        this.btnDelProp?.addEventListener("click", () => alert("Suppression bientôt disponible (API en attente)"));
+
+        this.btnCheckProp?.addEventListener("click", () => {
+            const propId = sessionStorage.getItem("selectedPropertyId");
+            if (propId) this.navigate(`PropertyDetails.html?id=${propId}`);
+        });
+
 
         const token = sessionStorage.getItem("userToken") || "";
         const role = sessionStorage.getItem("userRole") || "";
 
-        // adapte l'interface visuelle
         this.updateUI(role);
 
-        let properties: Property[];
+        let properties: Property[] = [];
 
         if (role === "agent" || role === "gestionnaire" || role === "admin") {
-            console.log("Mode Agent : Chargement global");
+            console.log("Mode Agent");
             properties = await this.dao.getAllProperties(token);
         } else {
-            console.log("Mode Bailleur : Chargement personnel");
+            console.log("Mode Bailleur");
             properties = await this.dao.getPropertiesByOwner(token);
         }
 
         this.renderTable(properties);
     }
 
-    // change les textes et affiche les boutons selon le rôle.
     private updateUI(role: string): void {
         const mainTitle = document.querySelector("h1");
         const subTitle = document.querySelector("h2");
-
         const actionsBarAgent = document.querySelector(".actions-barAgent") as HTMLElement;
         const actionsBarBailleur = document.querySelector(".actions-barBailleur") as HTMLElement;
 
-        // cahcé par defaut
         if (actionsBarAgent) actionsBarAgent.style.display = "none";
         if (actionsBarBailleur) actionsBarBailleur.style.display = "none";
 
-        // VISUEL BAILLEUR
         if (role === "bailleur") {
             if (mainTitle) mainTitle.textContent = "Mon Tableau de Bord";
             if (subTitle) subTitle.textContent = "Mes locations";
             if (actionsBarBailleur) actionsBarBailleur.style.display = "block";
         } else {
-            // VISUEL AGENT / ADMIN
             if (mainTitle) mainTitle.textContent = "Gestion des États des Lieux";
             if (subTitle) subTitle.textContent = "Tous les biens immobiliers";
             if (actionsBarAgent) actionsBarAgent.style.display = "block";
@@ -113,13 +125,14 @@ export class PropertyListView extends View {
                 <td>${prop.rent} €</td>
             `;
 
-            tr.addEventListener("click", () => this.selectRow(tr, prop.id));
+            tr.addEventListener("click", () => this.selectRow(tr, prop));
 
             this.tableBody?.appendChild(tr);
         });
     }
 
-    private selectRow(row: HTMLElement, id: number): void {
+    private selectRow(row: HTMLElement, property: Property): void {
+        // Visuel
         if (this.selectedRow) {
             this.selectedRow.style.backgroundColor = "";
             this.selectedRow.style.color = "";
@@ -128,11 +141,24 @@ export class PropertyListView extends View {
         this.selectedRow.style.backgroundColor = "#3498db";
         this.selectedRow.style.color = "white";
 
-        sessionStorage.setItem("selectedPropertyId", id.toString());
+        // Stockage des IDs
+        sessionStorage.setItem("selectedPropertyId", property.id.toString());
+        sessionStorage.setItem("selectedInventoryId", property.inventoryId.toString());
 
-        if (this.btnCreate) this.btnCreate.disabled = false;
-        if (this.btnEdit) this.btnEdit.disabled = false;
-        if (this.btnValidate) this.btnValidate.disabled = false;
+        // Logique AGENT
+        if (this.btnCreate && this.btnEdit && this.btnValidate) {
+            const hasInventory = property.inventoryId > 0;
+
+            this.btnCreate.disabled = hasInventory;
+
+            this.btnEdit.disabled = !hasInventory;
+            this.btnValidate.disabled = !hasInventory;
+        }
+
+        // Logique BAILLEUR
+        if (this.btnModProp) this.btnModProp.disabled = false;
+        if (this.btnDelProp) this.btnDelProp.disabled = false;
+        if (this.btnCheckProp) this.btnCheckProp.disabled = false;
     }
 
     private navigate(page: string): void {

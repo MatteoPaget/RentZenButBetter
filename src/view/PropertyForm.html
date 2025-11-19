@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentZen - Nouvelle Propriété</title>
+    <link rel="stylesheet" href="../../src/styles/style.css">
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
+</head>
+<body>
+
+<div class="container">
+    <h1>Ajouter une Propriété</h1>
+
+    <form id="property-form" class="form-card">
+        <div class="form-group">
+            <label for="name">Nom du bien</label>
+            <input type="text" id="name" placeholder="Ex: Appartement Centre-Ville" required>
+        </div>
+
+        <div class="form-group">
+            <label for="address">Adresse</label>
+            <input type="text" id="address" placeholder="Ex: 12 rue de la Paix, Paris" required>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group half">
+                <label for="rent">Loyer (€)</label>
+                <input type="number" id="rent" placeholder="0" min="0" required>
+            </div>
+            <div class="form-group half">
+                <label for="type">Type</label>
+                <select id="type">
+                    <option value="Appartement">Appartement</option>
+                    <option value="Maison">Maison</option>
+                    <option value="Studio">Studio</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="button" class="btn btn-secondary" onclick="window.history.back()">Annuler</button>
+            <button type="submit" class="btn btn-primary">Créer la propriété</button>
+        </div>
+    </form>
+
+    <p id="message-box" class="message-box" style="display: none;"></p>
+</div>
+
+<script type="module" src="../ts/js/view/PropertyFormView.js"></script>
+
+</body>
+</html>
